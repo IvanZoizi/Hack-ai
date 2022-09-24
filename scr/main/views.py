@@ -4,7 +4,7 @@ from .models import Photo
 from .forms import PhotoForm
 from django.shortcuts import render, redirect
 from django.core.files.base import ContentFile
-from .model import get_model
+from .model import get_model, gpu_cpu
 import zipfile
 
 import cv2
@@ -19,7 +19,6 @@ def add_location(request):
         if form.is_valid():
             image_list = []
             file = zipfile.ZipFile('media/photos/' + str(request.FILES.getlist('photos')[0]) + '.zip', 'w')
-            print(1)
             for f in request.FILES.getlist('photos'):
                 data = f.read()
                 photo = Photo()
@@ -28,6 +27,8 @@ def add_location(request):
                 SIDE = 640
                 img = cv2.imread(photo.image.url[1:])
                 h, w, _ = img.shape
+                gpu = form.cleaned_data.get('gpu_or_cpu', False)
+                gpu_cpu(gpu)
                 for x in range(0, w, SIDE):
                     for y in range(0, h, SIDE):
                         x_dif = 0

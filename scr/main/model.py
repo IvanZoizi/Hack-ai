@@ -17,3 +17,19 @@ def get_model(image):
     with torch.no_grad():
         pred = model(image)
     return pred
+
+
+def gpu_cpu(flag):
+    if flag:
+        if torch.cuda.is_available():
+            device = torch.device('cuda')
+
+            print(f"Количество GPU {torch.cuda.device_count}")
+
+            print(f"Используется {torch.cuda.get_device_name(0)}")
+        else:
+            device = torch.device('cpu')
+    else:
+        print('Нет доступных GPU')
+        device = torch.device('cpu')
+    model.to(device)
