@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главное меню</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button type="submit">Загрузить</button>
+        {% if image %}
+        <img src="{{ image }}">
+        {% endif %}
+        <img src="media/img/95_0.png">
+    </form>
+</body>
+</html>
