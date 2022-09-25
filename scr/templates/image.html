@@ -1,18 +1,25 @@
+<html>
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
     <title>Главное меню</title>
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data">
+    <header class="header_div">
+        <img src="{% static 'img/logo_bear.svg' %}" class="logo"><h1>Поиск полярных медведей на аэроснимках</h1>
+    </header>
+    <main class="menu">
+        <form method="post" enctype="multipart/form-data" class="main_form">
         {% csrf_token %}
         {{ form.as_table }}
-        <button type="submit">Загрузить</button>
+        <button type="submit" class="download">Загрузить снимки</button>
         {% if image %}
         <img src="{{ image }}">
         {% endif %}
-        <img src="media/img/95_0.png">
-    </form>
+        </form>
+    </main>
 </body>
 </html>
